@@ -1,4 +1,4 @@
-define('jquery-lifestream', ['jquery'], function($){
+define('jquery-lifestream', ['jquery', 'async'], function($, async){
 
 
 
