@@ -1,9 +1,9 @@
-(function($) {
+define('services/posterous', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.posterous = function( config, callback ) {
 
   var template = $.extend({},
     {
-      posted: 'posted <a href="${link}">${title}</a>'
+      posted: Handlebars.compile('posted <a href="${link}">${title}</a>')
     },
     config.template);
 
@@ -20,7 +20,7 @@ $.fn.lifestream.feeds.posterous = function( config, callback ) {
         output.push({
           date: new Date( item.pubDate ),
           config: config,
-          html: $.tmpl( template.posted, item )
+          html: template.posted( item )
         });
       }
     }
@@ -44,4 +44,4 @@ $.fn.lifestream.feeds.posterous = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

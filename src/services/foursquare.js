@@ -1,9 +1,9 @@
-(function($) {
+define('services/foursquare', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.foursquare = function( config, callback ) {
 
   var template = $.extend({},
     {
-      checkedin: 'checked in @ <a href="${link}">${title}</a>'
+      checkedin: Handlebars.compile('checked in @ <a href="${link}">${title}</a>')
     },
     config.template),
 
@@ -17,7 +17,7 @@ $.fn.lifestream.feeds.foursquare = function( config, callback ) {
         output.push({
           date: new Date(item.pubDate),
           config: config,
-          html: $.tmpl( template.checkedin, item )
+          html: template.checkedin(item )
         });
       }
     }
@@ -42,4 +42,4 @@ $.fn.lifestream.feeds.foursquare = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

@@ -1,12 +1,12 @@
-(function($) {
+define('services/hypem', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.hypem = function( config, callback ) {
 
   if( !config.type || config.type !== "history" || config.type !== "loved" ) { config.type = "loved"; }
 
   var template = $.extend({},
   {
-    loved: 'loved <a href="http://hypem.com/item/${mediaid}">${title}</a> by <a href="http://hypem.com/artist/${artist}">${artist}</a>',
-    history: 'listened to <a href="http://hypem.com/item/${mediaid}">${title}</a> by <a href="http://hypem.com/artist/${artist}">${artist}</a>'
+    loved: Handlebars.compile('loved <a href="http://hypem.com/item/${mediaid}">${title}</a> by <a href="http://hypem.com/artist/${artist}">${artist}</a>'),
+    history: Handlebars.compile('listened to <a href="http://hypem.com/item/${mediaid}">${title}</a> by <a href="http://hypem.com/artist/${artist}">${artist}</a>')
   },
   config.template);
 
@@ -26,7 +26,7 @@ $.fn.lifestream.feeds.hypem = function( config, callback ) {
           output.push({
             date: new Date( (config.type === "history" ? item.dateplayed : item.dateloved) * 1000 ),
             config: config,
-            html: $.tmpl( (config.type === "history" ? template.history : template.loved) , item )
+            html: (config.type === "history" ? template.history : template.loved) ( item )
           });
         }
       }
@@ -41,4 +41,4 @@ $.fn.lifestream.feeds.hypem = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

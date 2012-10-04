@@ -1,10 +1,10 @@
-(function($) {
+define('services/googlereader', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.googlereader = function( config, callback ) {
 
   var template = $.extend({},
     {
-      starred: 'shared <a href="{{if link.href}}${link.href}'
-        + '{{else}}${source.link.href}{{/if}}">${title.content}</a>'
+      starred: Handlebars.compile('shared <a href="{{if link.href}}${link.href}'
+        + '{{else}}${source.link.href}{{/if}}">${title.content}</a>')
     },
     config.template),
 
@@ -23,7 +23,7 @@ $.fn.lifestream.feeds.googlereader = function( config, callback ) {
           url: 'http://www.google.com/reader/shared' + config.user,
           date: new Date(parseInt(item["crawl-timestamp-msec"], 10)),
           config: config,
-          html: $.tmpl( template.starred, item )
+          html: template.starred( item )
         });
       }
     }
@@ -47,4 +47,4 @@ $.fn.lifestream.feeds.googlereader = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

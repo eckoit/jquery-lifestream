@@ -1,9 +1,9 @@
-(function($) {
+define('services/delicious', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.delicious = function( config, callback ) {
 
   var template = $.extend({},
     {
-      bookmarked: 'bookmarked <a href="${u}">${d}</a>'
+      bookmarked: Handlebars('bookmarked <a href="${u}">${d}</a>')
     },
     config.template);
 
@@ -19,7 +19,7 @@ $.fn.lifestream.feeds.delicious = function( config, callback ) {
           output.push({
             date: new Date(item.dt),
             config: config,
-            html: $.tmpl( template.bookmarked, item )
+            html: template.bookmarked (item )
           });
         }
       }
@@ -34,4 +34,4 @@ $.fn.lifestream.feeds.delicious = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

@@ -1,9 +1,9 @@
-(function($) {
+define('services/zotero', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.zotero = function( config, callback ) {
 
   var template = $.extend({},
     {
-      flagged: 'flagged <a href="${id}">${title}</a> by ${creatorSummary}'
+      flagged: Handlebars.compile('flagged <a href="${id}">${title}</a> by ${creatorSummary}')
     },
     config.template),
 
@@ -19,7 +19,7 @@ $.fn.lifestream.feeds.zotero = function( config, callback ) {
           date: new Date(item.updated),
           config: config,
           url: 'http://zotero.com/users/' + config.user,
-          html: $.tmpl( template.flagged, item ),
+          html: template.flagged( item )
         });
       }
     }
@@ -43,4 +43,4 @@ $.fn.lifestream.feeds.zotero = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

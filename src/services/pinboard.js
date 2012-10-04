@@ -1,9 +1,9 @@
-(function($) {
+define('services/pinboard', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.pinboard = function( config, callback ) {
 
   var template = $.extend({},
     {
-      bookmarked: 'bookmarked <a href="${link}">${title}</a>'
+      bookmarked: Handlebars.compile('bookmarked <a href="${link}">${title}</a>')
     },
     config.template);
 
@@ -19,7 +19,7 @@ $.fn.lifestream.feeds.pinboard = function( config, callback ) {
         output.push({
           date: new Date(item.date),
           config: config,
-          html: $.tmpl( template.bookmarked, item )
+          html: template.bookmarked( item )
         });
 
       }
@@ -44,4 +44,4 @@ $.fn.lifestream.feeds.pinboard = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

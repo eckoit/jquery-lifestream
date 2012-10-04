@@ -1,9 +1,9 @@
-(function($) {
+define('services/twitter', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.twitter = function( config, callback ) {
 
   var template = $.extend({},
     {
-      posted: '{{html tweet}}'
+      posted: Handlebars.compile('{{{tweet}}}')
     },
     config.template),
 
@@ -61,7 +61,7 @@ $.fn.lifestream.feeds.twitter = function( config, callback ) {
         output.push({
           date: new Date(status.created_at),
           config: config,
-          html: $.tmpl( template.posted, {
+          html: template.posted( {
             tweet: linkify(status.text),
             complete_url: 'http://twitter.com/#!/' + config.user + "/status/" + status.id_str
           } ),
@@ -91,4 +91,4 @@ $.fn.lifestream.feeds.twitter = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

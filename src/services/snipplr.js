@@ -1,9 +1,9 @@
-(function($) {
+define('services/snipplr', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.snipplr = function( config, callback ) {
 
   var template = $.extend({},
     {
-      posted: 'posted a snippet <a href="${link}">${title}</a>'
+      posted: Handlebars.compile('posted a snippet <a href="${link}">${title}</a>')
     },
     config.template);
 
@@ -20,7 +20,7 @@ $.fn.lifestream.feeds.snipplr = function( config, callback ) {
         output.push({
           date: new Date( item.pubDate ),
           config: config,
-          html: $.tmpl( template.posted, item )
+          html: template.posted( item )
         });
       }
     }
@@ -38,4 +38,4 @@ $.fn.lifestream.feeds.snipplr = function( config, callback ) {
   });
 
 };
-})(jQuery);
+});

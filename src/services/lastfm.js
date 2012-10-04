@@ -1,10 +1,10 @@
-(function($) {
+define('services/lastfm', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.lastfm = function( config, callback ) {
 
   var template = $.extend({},
     {
-      loved: 'loved <a href="${url}">${name}</a> by '
-        + '<a href="${artist.url}">${artist.name}</a>'
+      loved: Handlebars.compile('loved <a href="${url}">${name}</a> by '
+        + '<a href="${artist.url}">${artist.name}</a>')
     },
     config.template),
 
@@ -22,7 +22,7 @@ $.fn.lifestream.feeds.lastfm = function( config, callback ) {
         output.push({
           date: new Date(parseInt((itemDate * 1000), 10)),
           config: config,
-          html: $.tmpl( template.loved, item )
+          html: template.loved( item )
         });
       }
     }
@@ -46,4 +46,4 @@ $.fn.lifestream.feeds.lastfm = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

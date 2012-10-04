@@ -1,9 +1,9 @@
-(function($) {
+define('services/picplz', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.picplz = function( config, callback ) {
 
   var template = $.extend({},
     {
-      uploaded: 'uploaded <a href="${url}">${title}</a>'
+      uploaded: Handlebars.compile('uploaded <a href="${url}">${title}</a>')
     },
     config.template);
 
@@ -21,7 +21,7 @@ $.fn.lifestream.feeds.picplz = function( config, callback ) {
           output.push({
             date: new Date( ( item.date ) * 1000 ),
             config: config,
-            html: $.tmpl( template.uploaded, {
+            html: template.uploaded( {
               url: 'http://picplz.com' + item.url,
               title: item.caption || item.id
               } )
@@ -39,4 +39,4 @@ $.fn.lifestream.feeds.picplz = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

@@ -1,11 +1,11 @@
-(function($) {
+define('services/wikipedia', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.wikipedia = function( config, callback ) {
   // default to english if no language was set
   var language = config.language || 'en',
 
   template = $.extend({},
     {
-      contribution: 'contributed to <a href="${url}">${title}</a>'
+      contribution: Handlebars.compile('contributed to <a href="${url}">${title}</a>')
     },
     config.template);
 
@@ -31,7 +31,7 @@ $.fn.lifestream.feeds.wikipedia = function( config, callback ) {
           output.push({
             date: new Date( item.timestamp ),
             config: config,
-            html: $.tmpl( template.contribution, item )
+            html: template.contribution( item )
           });
         }
       }
@@ -47,4 +47,4 @@ $.fn.lifestream.feeds.wikipedia = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

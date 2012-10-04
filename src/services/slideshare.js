@@ -1,9 +1,9 @@
-(function($) {
+define('services/slideshare', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.slideshare = function( config, callback ) {
 
   var template = $.extend({},
     {
-      uploaded: 'uploaded a presentation <a href="${link}">${title}</a>'
+      uploaded: Handlebars.compile('uploaded a presentation <a href="${link}">${title}</a>')
     },
     config.template);
 
@@ -19,7 +19,7 @@ $.fn.lifestream.feeds.slideshare = function( config, callback ) {
         output.push({
           date: new Date(item.pubDate),
           config: config,
-          html: $.tmpl( template.uploaded, item )
+          html: template.uploaded(item )
         });
 
       }
@@ -44,4 +44,4 @@ $.fn.lifestream.feeds.slideshare = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

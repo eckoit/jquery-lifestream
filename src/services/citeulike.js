@@ -1,9 +1,9 @@
-(function($) {
+define('services/citeulike', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.citeulike = function( config, callback ) {
 
   var template = $.extend({},
     {
-      saved: 'saved <a href="${href}">${title}</a> by ${authors}'
+      saved: Handlebars.compile('saved <a href="${href}">${title}</a> by ${authors}')
     },
     config.template),
 
@@ -18,7 +18,7 @@ $.fn.lifestream.feeds.citeulike = function( config, callback ) {
           date: new Date(item.date),
           config: config,
           url: 'http://www.citeulike.org/user/' + config.user,
-          html: $.tmpl( template.saved, item ),
+          html: template.saved(item )
         });
       }
     }
@@ -40,4 +40,4 @@ $.fn.lifestream.feeds.citeulike = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

@@ -1,10 +1,10 @@
-(function($) {
+define('services/youtube', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.youtube = function( config, callback ) {
 
   var template = $.extend({},
     {
-      favorited: 'favorited <a href="${video.player.default}" '
-        + 'title="${video.description}">${video.title}</a>'
+      favorited: Handlebars.compile('favorited <a href="${video.player.default}" '
+        + 'title="${video.description}">${video.title}</a>')
     },
     config.template),
 
@@ -18,7 +18,7 @@ $.fn.lifestream.feeds.youtube = function( config, callback ) {
         output.push({
           date: new Date(item.created),
           config: config,
-          html: $.tmpl( template.favorited, item )
+          html: template.favorited( item )
         });
       }
     }
@@ -42,4 +42,4 @@ $.fn.lifestream.feeds.youtube = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

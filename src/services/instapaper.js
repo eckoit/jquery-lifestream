@@ -1,9 +1,9 @@
-(function($) {
+define('services/instapaper', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.instapaper = function( config, callback ) {
 
   var template = $.extend({},
     {
-      loved: 'loved <a href="${link}">${title}</a>'
+      loved: Handlebars.compile('loved <a href="${link}">${title}</a>')
     },
     config.template),
 
@@ -20,7 +20,7 @@ $.fn.lifestream.feeds.instapaper = function( config, callback ) {
         output.push({
           date: new Date( item.pubDate ),
           config: config,
-          html: $.tmpl( template.loved, item )
+          html: template.loved( item )
         });
       }
     }
@@ -44,4 +44,4 @@ $.fn.lifestream.feeds.instapaper = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

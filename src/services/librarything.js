@@ -1,11 +1,11 @@
-(function($) {
+define('services/librarything', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.librarything = function( config, callback ) {
 
   var template = $.extend({},
     {
-      book: 'added <a href="http://www.librarything.com/work/book/${book.book_id}"'
+      book: Handlebars.compile('added <a href="http://www.librarything.com/work/book/${book.book_id}"'
           + ' title="${book.title} by ${book.author_fl}">'
-          + '${book.title} by ${book.author_fl}</a> to my library'
+          + '${book.title} by ${book.author_fl}</a> to my library')
     },
     config.template),
 
@@ -21,7 +21,7 @@ $.fn.lifestream.feeds.librarything = function( config, callback ) {
           output.push({
             date : new Date(book.entry_stamp * 1000),
             config : config,
-            html : $.tmpl(template.book, {book : book}),
+            html : template.book( {book : book}),
             url : 'http://www.librarything.com/profile/' + config.user
           });
         }
@@ -43,4 +43,4 @@ $.fn.lifestream.feeds.librarything = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

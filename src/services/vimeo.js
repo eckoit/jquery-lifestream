@@ -1,9 +1,9 @@
-(function($) {
+define('services/vimeo', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.vimeo = function( config, callback ) {
 
   var template = $.extend({},
     {
-      posted: 'posted <a href="${url}" title="${description}">${title}</a>'
+      posted: Handlebars.compile('posted <a href="${url}" title="${description}">${title}</a>')
     },
     config.template),
 
@@ -17,7 +17,7 @@ $.fn.lifestream.feeds.vimeo = function( config, callback ) {
         output.push({
           date: new Date( item.upload_date.replace(' ', 'T') ),
           config: config,
-          html: $.tmpl( template.posted, {
+          html: template.posted( {
             url: item.url,
             description: item.description.replace(/"/g, "'")
                                          .replace( /<.+?>/gi, ""),
@@ -46,4 +46,4 @@ $.fn.lifestream.feeds.vimeo = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

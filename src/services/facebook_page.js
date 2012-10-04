@@ -1,9 +1,9 @@
-(function($) {
+define('services/facebook_page', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.facebook_page = function( config, callback ) {
 
   var template = $.extend({},
     {
-      wall_post: 'post on wall <a href="${link}">${title}</a>'
+      wall_post: Handlebars.compile('post on wall <a href="${link}">${title}</a>')
     },
     config.template),
 
@@ -22,7 +22,7 @@ $.fn.lifestream.feeds.facebook_page = function( config, callback ) {
           output.push({
             date: new Date(item["pubDate"]),
             config: config,
-            html: $.tmpl( template.wall_post, item )
+            html: template.wall_post(item )
           });
         }
       }
@@ -47,4 +47,4 @@ $.fn.lifestream.feeds.facebook_page = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

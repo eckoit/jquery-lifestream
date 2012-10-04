@@ -1,9 +1,9 @@
-(function($) {
+define('services/blogger', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.blogger = function( config, callback ) {
 
   var template = $.extend({},
     {
-      posted: 'posted <a href="${origLink}">${title}</a>'
+      posted: Handlebars.compile('posted <a href="${origLink}">${title}</a>')
     },
     config.template),
 
@@ -35,7 +35,7 @@ $.fn.lifestream.feeds.blogger = function( config, callback ) {
           output.push({
             date: new Date( item.published ),
             config: config,
-            html: $.tmpl( template.posted, item )
+            html: template.posted( item )
           });
         }
       }
@@ -60,4 +60,4 @@ $.fn.lifestream.feeds.blogger = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

@@ -1,10 +1,10 @@
-(function($) {
+define('services/forrst', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.forrst = function( config, callback ) {
 
   var template = $.extend({},
     {
-      posted: 'posted a ${post_type} '
-        + '<a href="${post_url}">${title}</a>'
+      posted: Handlebars.compile('posted a ${post_type} '
+        + '<a href="${post_url}">${title}</a>')
     },
     config.template);
 
@@ -20,7 +20,7 @@ $.fn.lifestream.feeds.forrst = function( config, callback ) {
           output.push({
             date: new Date( item.created_at.replace(' ', 'T') ),
             config: config,
-            html: $.tmpl( template.posted, item )
+            html: template.posted(item )
           });
         }
       }
@@ -35,4 +35,4 @@ $.fn.lifestream.feeds.forrst = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

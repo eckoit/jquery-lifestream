@@ -1,10 +1,10 @@
-(function($) {
+define('services/bitly', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.bitly = function( config, callback ) {
 
   var template = $.extend({},
     {
-      created: 'created URL <a href="${short_url}" title="${title}">'
-        + '${short_url}</a>'
+      created: Handlebars.compile('created URL <a href="${short_url}" title="${title}">'
+        + '${short_url}</a>')
     },
     config.template);
 
@@ -23,7 +23,7 @@ $.fn.lifestream.feeds.bitly = function( config, callback ) {
           output.push({
             date: new Date(item.created * 1000),
             config: config,
-            html: $.tmpl( template.created, item )
+            html: template.created(item)
           });
         }
       }
@@ -38,4 +38,4 @@ $.fn.lifestream.feeds.bitly = function( config, callback ) {
   };
 
 };
-})(jQuery);
+})

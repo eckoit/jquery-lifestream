@@ -1,17 +1,17 @@
-(function($) {
+define('services/reddit', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.reddit = function( config, callback ) {
 
   var template = $.extend({},
     {
-      commented: '<a href="http://www.reddit.com/r/${item.data.subreddit}'
+      commented: Handlebars.compile('<a href="http://www.reddit.com/r/${item.data.subreddit}'
         + '/comments/${item.data.link_id.substring(3)}/u/'
         + '${item.data.name.substring(3)}?context=3">commented '
         + '(${score})</a> in <a href="http://www.reddit.com/r/'
-        + '${item.data.subreddit}">${item.data.subreddit}</a>',
-      created: '<a href="http://www.reddit.com${item.data.permalink}">'
+        + '${item.data.subreddit}">${item.data.subreddit}</a>'),
+      created: Handlebars.compile('<a href="http://www.reddit.com${item.data.permalink}">'
         + 'created new thread (${score})</a> in '
         + '<a href="http://www.reddit.com/r/${item.data.subreddit}">'
-        + '${item.data.subreddit}</a>'
+        + '${item.data.subreddit}</a>')
     },
     config.template);
 
@@ -29,10 +29,10 @@ $.fn.lifestream.feeds.reddit = function( config, callback ) {
 
     // t1 = reply, t3 = new thread
     if (item.kind === "t1") {
-      return $.tmpl( template.commented, pass );
+      return template.commented( pass );
     }
     else if (item.kind === "t3") {
-      return $.tmpl( template.created, pass );
+      return template.created(pass );
     }
 
   },
@@ -76,4 +76,4 @@ $.fn.lifestream.feeds.reddit = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

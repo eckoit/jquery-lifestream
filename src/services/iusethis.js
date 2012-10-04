@@ -1,9 +1,9 @@
-(function($) {
+define('services/iusethis', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.iusethis = function( config, callback ) {
 
   var template = $.extend({},
     {
-      global: '${action} <a href="${link}">${what}</a> on (${os})'
+      global: Handlebars.compile('${action} <a href="${link}">${what}</a> on (${os})')
     },
     config.template);
 
@@ -43,7 +43,7 @@ $.fn.lifestream.feeds.iusethis = function( config, callback ) {
           output.push({
             date: new Date(item.pubDate),
             config: config,
-            html: $.tmpl( template.global, {
+            html: template.global( {
               action: action.toLowerCase(),
               link: item.link,
               what: what[1],
@@ -77,4 +77,4 @@ $.fn.lifestream.feeds.iusethis = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

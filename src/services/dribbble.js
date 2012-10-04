@@ -1,9 +1,9 @@
-(function($) {
+define('services/dribbble', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.dribbble = function( config, callback ) {
 
     var template = $.extend({},
       {
-        posted: 'posted a shot <a href="${url}">${title}</a>'
+        posted: Handlebars.compile('posted a shot <a href="${url}">${title}</a>')
       },
       config.template);
 
@@ -20,7 +20,7 @@ $.fn.lifestream.feeds.dribbble = function( config, callback ) {
             output.push({
               date: new Date(item.created_at),
               config: config,
-              html: $.tmpl( template.posted, item )
+              html: template.posted(item )
             });
           }
         }
@@ -36,4 +36,4 @@ $.fn.lifestream.feeds.dribbble = function( config, callback ) {
     };
 
   };
-  })(jQuery);
+  });

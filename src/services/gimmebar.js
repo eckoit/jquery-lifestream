@@ -1,9 +1,9 @@
-(function($) {
+define('services/gimmebar', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.gimmebar = function( config, callback ) {
 
   var template = $.extend({},
     {
-      bookmarked: 'bookmarked <a href="${short_url}">${title}</a>'
+      bookmarked: Handlebars.compile('bookmarked <a href="${short_url}">${title}</a>')
     },
     config.template);
 
@@ -20,7 +20,7 @@ $.fn.lifestream.feeds.gimmebar = function( config, callback ) {
           output.push({
             date: new Date(item.date * 1000),
             config: config,
-            html: $.tmpl( template.bookmarked, item )
+            html: template.bookmarked(item )
           });
         }
       }
@@ -35,4 +35,4 @@ $.fn.lifestream.feeds.gimmebar = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

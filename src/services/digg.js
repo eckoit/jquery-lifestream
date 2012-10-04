@@ -1,11 +1,11 @@
-(function($) {
+define('services/digg', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.digg = function( config, callback ) {
 
 	var template = $.extend({},
 		{
-			comment: 'commented on <a href="${url}" title="${title}">${title}</a>',
-			digg: 'dugg <a href="${url}" title="${title}">${title}</a>',
-			submission: 'submitted <a href="${url}" title="${title}">${title}</a>'
+			comment: Handlebars.compile('commented on <a href="${url}" title="${title}">${title}</a>'),
+			digg: Handlebars.compile('dugg <a href="${url}" title="${title}">${title}</a>'),
+			submission: Handlebars.compile('submitted <a href="${url}" title="${title}">${title}</a>')
 		},
 		config.template);
 
@@ -39,7 +39,7 @@ $.fn.lifestream.feeds.digg = function( config, callback ) {
             output.push({
 	            date: new Date( time * 1000 ),
   	          config: config,
-  	          html: $.tmpl( template[item.activity[l]], item )
+  	          html: template[item.activity[l]](item )
   	        });
           }
         }
@@ -56,4 +56,4 @@ $.fn.lifestream.feeds.digg = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

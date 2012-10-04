@@ -1,9 +1,9 @@
-(function($) {
+define('services/stackoverflow', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.stackoverflow = function( config, callback ) {
 
   var template = $.extend({},
     {
-      global: '<a href="${link}">${text}</a> - ${title}'
+      global: Handlebars.compile('<a href="${link}">${text}</a> - ${title}')
     },
     config.template);
 
@@ -56,7 +56,7 @@ $.fn.lifestream.feeds.stackoverflow = function( config, callback ) {
           output.push({
             date: convertDate(item.creation_date),
             config: config,
-            html: $.tmpl( template.global, parseStackoverflowItem(item) )
+            html: template.global(parseStackoverflowItem(item) )
           });
         }
       }
@@ -72,4 +72,4 @@ $.fn.lifestream.feeds.stackoverflow = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

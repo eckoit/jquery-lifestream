@@ -1,9 +1,9 @@
-(function($) {
+define('services/dailymotion', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.dailymotion = function( config, callback ) {
 
   var template = $.extend({},
     {
-      uploaded: 'uploaded a video <a href="${link}">${title[0]}</a>'
+      uploaded: Handlebars.compile('uploaded a video <a href="${link}">${title[0]}</a>')
     },
     config.template),
 
@@ -20,7 +20,7 @@ $.fn.lifestream.feeds.dailymotion = function( config, callback ) {
         output.push({
           date: new Date ( item.pubDate ),
           config: config,
-          html: $.tmpl( template.uploaded, item )
+          html: template.uploaded(item )
         });
       }
     }
@@ -45,4 +45,4 @@ $.fn.lifestream.feeds.dailymotion = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

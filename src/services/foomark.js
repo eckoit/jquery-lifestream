@@ -1,9 +1,9 @@
-(function($) {
+define('services/foomark', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.foomark = function( config, callback ) {
 
   var template = $.extend({},
     {
-      bookmarked: 'bookmarked <a href="${url}">${url}</a>'
+      bookmarked: Handlebars.compile('bookmarked <a href="${url}">${url}</a>')
     },
     config.template);
 
@@ -24,7 +24,7 @@ $.fn.lifestream.feeds.foomark = function( config, callback ) {
           output.push({
             date: new Date( item.created_at.replace(/-/g, '/') ),
             config: config,
-            html: $.tmpl( template.bookmarked, item )
+            html: template.bookmarked( item )
           });
         }
       }
@@ -39,4 +39,4 @@ $.fn.lifestream.feeds.foomark = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

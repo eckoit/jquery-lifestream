@@ -1,10 +1,10 @@
-(function($) {
+define('services/googleplus', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.googleplus = function( config, callback ) {
 
   var template = $.extend({},
     {
-    posted: '<a href="${actor.url}">${actor.displayName}</a> has posted a new entry <a href="${url}" '
-        + 'title="${id}">${title}</a> <!--With--> ${object.replies.totalItems} replies, ${object.plusoners.totalItems} +1s, ${object.resharers.totalItems} Reshares'
+    posted: Handlebars.compile('<a href="${actor.url}">${actor.displayName}</a> has posted a new entry <a href="${url}" '
+        + 'title="${id}">${title}</a> <!--With--> ${object.replies.totalItems} replies, ${object.plusoners.totalItems} +1s, ${object.resharers.totalItems} Reshares')
     },
     config.template),
 
@@ -18,7 +18,7 @@ $.fn.lifestream.feeds.googleplus = function( config, callback ) {
         output.push({
           date: new Date( item.published ),
           config: config,
-          html: $.tmpl( template.posted, item )
+          html: template.posted( item )
         });
       }
     }
@@ -53,4 +53,4 @@ $.fn.lifestream.feeds.googleplus = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

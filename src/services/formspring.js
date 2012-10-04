@@ -1,9 +1,9 @@
-(function($) {
+define('services/formspring', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.formspring = function( config, callback ) {
 
   var template = $.extend({},
     {
-      answered: 'answered a question <a href="${link}">${title}</a>'
+      answered: Handlebars.compile('answered a question <a href="${link}">${title}</a>')
     },
     config.template);
 
@@ -20,7 +20,7 @@ $.fn.lifestream.feeds.formspring = function( config, callback ) {
         output.push({
           date: new Date( item.pubDate ),
           config: config,
-          html: $.tmpl( template.answered, item )
+          html: template.answered(item )
         });
       }
     }
@@ -44,4 +44,4 @@ $.fn.lifestream.feeds.formspring = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

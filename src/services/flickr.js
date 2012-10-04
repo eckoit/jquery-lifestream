@@ -1,9 +1,9 @@
-(function($) {
+define('services/flickr', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.flickr = function( config, callback ) {
 
   var template = $.extend({},
     {
-      posted: 'posted a photo <a href="${link}">${title}</a>'
+      posted: Handlebars.compile('posted a photo <a href="${link}">${title}</a>')
     },
     config.template);
 
@@ -22,7 +22,7 @@ $.fn.lifestream.feeds.flickr = function( config, callback ) {
           output.push({
             date: new Date( item.published ),
             config: config,
-            html: $.tmpl( template.posted, item )
+            html: template.posted(item )
           });
         }
       }
@@ -38,4 +38,4 @@ $.fn.lifestream.feeds.flickr = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

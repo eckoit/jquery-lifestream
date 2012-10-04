@@ -1,9 +1,9 @@
-(function($) {
+define('services/tumblr', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.tumblr = function( config, callback ) {
 
   var template = $.extend({},
     {
-      posted: 'posted a ${type} <a href="${url}">${title}</a>'
+      posted: Handlebars.compile('posted a ${type} <a href="${url}">${title}</a>')
     },
     config.template),
   limit = config.limit || 20,
@@ -91,7 +91,7 @@ $.fn.lifestream.feeds.tumblr = function( config, callback ) {
     return {
       date: new Date(post.date),
       config: config,
-      html: $.tmpl( template.posted, {
+      html: template.posted( {
           type: post.type.replace('regular', 'blog entry'),
           url: post.url,
           image: getImage(post),
@@ -134,4 +134,4 @@ $.fn.lifestream.feeds.tumblr = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});

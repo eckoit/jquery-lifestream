@@ -1,14 +1,14 @@
-(function($) {
+define('services/bitbucket', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.bitbucket = function( config, callback ) {
 
   var template = $.extend({},
     {
-      commit: '<a href="http://bitbucket.org/${owner}/${name}/changeset/${node}/">committed</a> at <a href="http://bitbucket.org/${owner}/${name}/">${owner}/${name}</a>',
-      pullrequest_fulfilled: 'fulfilled a pull request at <a href="http://bitbucket.org/${owner}/${name}/">${owner}/${name}</a>',
-      pullrequest_rejected: 'rejected a pull request at <a href="http://bitbucket.org/${owner}/${name}/">${owner}/${name}</a>',
-      pullrequest_created: 'created a pull request at <a href="http://bitbucket.org/${owner}/${name}/">${owner}/${name}</a>',
-      create: 'created a new project at <a href="http://bitbucket.org/${owner}/${name}/">${owner}/${name}</a>',
-      fork: 'forked <a href="http://bitbucket.org/${owner}/${name}/">${owner}/${name}</a>'
+      commit: Handlebars.compile('<a href="http://bitbucket.org/${owner}/${name}/changeset/${node}/">committed</a> at <a href="http://bitbucket.org/${owner}/${name}/">${owner}/${name}</a>'),
+      pullrequest_fulfilled: Handlebars.compile('fulfilled a pull request at <a href="http://bitbucket.org/${owner}/${name}/">${owner}/${name}</a>'),
+      pullrequest_rejected: Handlebars.compile('rejected a pull request at <a href="http://bitbucket.org/${owner}/${name}/">${owner}/${name}</a>'),
+      pullrequest_created: Handlebars.compile('created a pull request at <a href="http://bitbucket.org/${owner}/${name}/">${owner}/${name}</a>'),
+      create: Handlebars.compile('created a new project at <a href="http://bitbucket.org/${owner}/${name}/">${owner}/${name}</a>'),
+      fork: Handlebars.compile('forked <a href="http://bitbucket.org/${owner}/${name}/">${owner}/${name}</a>')
     },
     config.template),
 
@@ -32,7 +32,7 @@ $.fn.lifestream.feeds.bitbucket = function( config, callback ) {
             node: status.node
           });
         } else {
-          return $.tmpl( template[status.event], {
+          return template[status.event]({
             owner: status.repository.owner,
             name: status.repository.name
           });
@@ -72,4 +72,4 @@ $.fn.lifestream.feeds.bitbucket = function( config, callback ) {
     'template' : template
   };
 };
-})(jQuery);
+});

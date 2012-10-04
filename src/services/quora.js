@@ -1,9 +1,9 @@
-(function($) {
+define('services/quora', ['jquery', 'handlebars'], function(_, Handlebars){
 $.fn.lifestream.feeds.quora = function( config, callback ) {
 
   var template = $.extend({},
     {
-      posted: '<a href="${link}">${title}</a>'
+      posted: Handlebars.compile('<a href="${link}">${title}</a>')
     },
     config.template),
 
@@ -22,7 +22,7 @@ $.fn.lifestream.feeds.quora = function( config, callback ) {
           url: 'http://www.google.com/reader/shared' + config.user,
           date: new Date( item.pubDate ),
           config: config,
-          html: $.tmpl( template.posted, item )
+          html: template.posted( item )
         });
       }
     }
@@ -45,4 +45,4 @@ $.fn.lifestream.feeds.quora = function( config, callback ) {
   };
 
 };
-})(jQuery);
+});
