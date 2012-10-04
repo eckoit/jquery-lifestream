@@ -1,3 +1,7 @@
+define('jquery-lifestream', ['jquery'], function($){
+
+
+
 /*!
  * jQuery Lifestream Plug-in
  * @version 0.3.2
@@ -5,10 +9,6 @@
  *
  * Copyright 2011, Christian Vuerings - http://denbuzze.com
  */
-/*globals jQuery, $ */
-;(function( $ ){
-
-  "use strict";
 
   /**
    * Initialize the lifestream plug-in
@@ -140,16 +140,7 @@
 
       };
 
-      // Load the jQuery templates plug-in if it wasn't included in the page.
-      // At then end we call the load method.
-      if( !jQuery.tmpl ) {
-        jQuery.getScript(
-          "http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js",
-          load);
-      } else {
-        load();
-      }
-
+      load();
     });
 
   };
@@ -189,4 +180,4 @@
     };
   }
 
-}( jQuery ));
+});
