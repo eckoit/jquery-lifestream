@@ -1,4 +1,4 @@
-define('jquery-lifestream', ['jquery', 'async'], function($, async){
+define('jquery-lifestream', ['jquery', 'underscore', 'moment'], function($, _, moment){
 
 
 
@@ -31,7 +31,7 @@ define('jquery-lifestream', ['jquery', 'async'], function($, async){
         // Callback function which will be triggered when a feed is loaded
         feedloaded: null,
         // The amount of feed items you want to show
-        limit: 10,
+        limit: 300,
         // An array of feed items which you want to use
         list: []
       }, config),
@@ -44,7 +44,7 @@ define('jquery-lifestream', ['jquery', 'async'], function($, async){
 
       // We use the item settings to pass the global settings variable to
       // every feed
-      itemsettings = jQuery.extend( true, {}, settings ),
+      itemsettings = $.extend( true, {}, settings ),
 
       /**
        * This method will be called every time a feed is loaded. This means
@@ -57,6 +57,7 @@ define('jquery-lifestream', ['jquery', 'async'], function($, async){
        */
       finished = function( inputdata ) {
 
+          console.log(inputdata);
         // Merge the feed items we have from other feeds, with the feeditems
         // from the new feed
         $.merge( data.items, inputdata );
@@ -85,12 +86,14 @@ define('jquery-lifestream', ['jquery', 'async'], function($, async){
         for ( ; i < length; i++ ) {
           item = items[i];
           if ( item.html ) {
-            $('<li class="'+ settings.classname + '-' +
-               item.config.service + '">').data( "name", item.config.service )
-                                           .data( "url", item.url || "#" )
-                                           .data( "time", item.date )
-                                           .append( item.html )
-                                           .appendTo( ul );
+            var readable_date = moment(item.date).fromNow();
+
+            var $elem = $('<li id="'+item.config.service + '-' + item.date.getTime()  + '" class="'+ settings.classname + '-' + item.config.service + '">');
+
+            $elem.append( item.html + ' [ ' + readable_date + ' ]' ).appendTo( ul );
+            $elem.data( "name", item.config.service )
+               .data( "url", item.url || "#" )
+               .data( "time", item.date );
           }
         }
 
@@ -110,27 +113,18 @@ define('jquery-lifestream', ['jquery', 'async'], function($, async){
        * @private
        */
       load = function() {
-
-        var i = 0, j = settings.list.length;
-
-        // We don't pass the list array to each feed  because this will create
-        // a recursive JavaScript object
-        delete itemsettings.list;
-
-        // Run over all the items in the list
-        for( ; i < j; i++ ) {
-            var config = settings.list[i];
-            if (config.user) {
-                console.log(config);
-                require(['services/' + config.service], function(service){
-                    config._settings = itemsettings;
-                    $.fn.lifestream.feeds[config.service] = service( config, finished );
-                })
-            }
-        }
-
+        var service_configs = _.map(settings.list, function(service_config) {
+            return _.clone(service_config);
+        })
+          console.log(service_configs);
+        _.each(service_configs, function(config){
+            if (!config.user) return
+            require(['jam/jquery-lifestream/services/' + config.service], function(service){
+                config._settings = itemsettings;
+                $.fn.lifestream.feeds[config.service] = service( config, finished );
+            })
+        });
       };
-
       load();
     });
 

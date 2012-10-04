@@ -1,4 +1,4 @@
-define('services/instapaper', ['jquery', 'handlebars'], function(_, Handlebars){
+define('jam/jquery-lifestream/services/instapaper', ['jquery', 'handlebars'], function(_, Handlebars){
 return function( config, callback ) {
 
   var template = $.extend({},

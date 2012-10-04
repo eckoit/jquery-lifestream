@@ -1,57 +1,57 @@
-define('services/github', ['jquery', 'handlebars'], function(_, Handlebars){
+define('jam/jquery-lifestream/services/github', ['jquery', 'handlebars'], function(_, Handlebars){
 return function( config, callback ) {
-
   var template = $.extend({},
     {
       commitCommentEvent: Handlebars.compile('commented on <a href="http://github.com/'
-      + '${status.repo.name}">${status.repo.name}</a>'),
+      + '{{status.repo.name}}">{{status.repo.name}}</a>'),
       createBranchEvent: Handlebars.compile('created branch <a href="http://github.com/'
-      + '${status.repo.name}/tree/${status.payload.ref}">'
-      + '${status.payload.ref}</a> at <a href="http://github.com/'
-      + '${status.repo.name}">${status.repo.name}</a>'),
+      + '{{status.repo.name}}/tree/{{status.payload.ref}}">'
+      + '{{status.payload.ref}}</a> at <a href="http://github.com/'
+      + '{{status.repo.name}}">{{status.repo.name}}</a>'),
       createRepositoryEvent: Handlebars.compile('created repository <a href="http://github.com/'
-      + '${status.repo.name}">${status.repo.name}</a>'),
+      + '{{status.repo.name}}">{{status.repo.name}}</a>'),
       createTagEvent: Handlebars.compile('created tag <a href="http://github.com/'
-      + '${status.repo.name}/tree/${status.payload.ref}">'
-      + '${status.payload.ref}</a> at <a href="http://github.com/'
-      + '${status.repo.name}">${status.repo.name}</a>'),
-      deleteBranchEvent: Handlebars.compile('deleted branch ${status.payload.ref} at '
-      + '<a href="http://github.com/${status.repo.name}">'
-      + '${status.repo.name}</a>'),
-      deleteTagEvent: Handlebars.compile('deleted tag ${status.payload.ref} at '
-      + '<a href="http://github.com/${status.repo.name}">'
-      + '${status.repo.name}</a>'),
+      + '{{status.repo.name}}/tree/{{status.payload.ref}}">'
+      + '{{status.payload.ref}}</a> at <a href="http://github.com/'
+      + '{{status.repo.name}}">{{status.repo.name}}</a>'),
+      deleteBranchEvent: Handlebars.compile('deleted branch {{status.payload.ref}} at '
+      + '<a href="http://github.com/{{status.repo.name}}">'
+      + '{{status.repo.name}}</a>'),
+      deleteTagEvent: Handlebars.compile('deleted tag {{status.payload.ref}} at '
+      + '<a href="http://github.com/{{status.repo.name}}">'
+      + '{{status.repo.name}}</a>'),
       followEvent: Handlebars.compile('started following <a href="http://github.com/'
-      + '${status.payload.target.login}">${status.payload.target.login}</a>'),
-      forkEvent: Handlebars.compile('forked <a href="http://github.com/${status.repo.name}">'
-      + '${status.repo.name}</a>'),
-      gistEvent: Handlebars.compile('${status.payload.action} gist '
-      + '<a href="http://gist.github.com/${status.payload.gist.id}">'
-      + '${status.payload.gist.id}</a>'),
+      + '{{status.payload.target.login}}">{{status.payload.target.login}}</a>'),
+      forkEvent: Handlebars.compile('forked <a href="http://github.com/{{status.repo.name}}">'
+      + '{{status.repo.name}}</a>'),
+      gistEvent: Handlebars.compile('{{status.payload.action}} gist '
+      + '<a href="http://gist.github.com/{{status.payload.gist.id}}">'
+      + '{{status.payload.gist.id}}</a>'),
       issueCommentEvent: Handlebars.compile('commented on issue <a href="http://github.com/'
-      + '${status.repo.name}/issues/${status.payload.issue.number}">'
-      + '${status.payload.issue.number}</a> on <a href="http://github.com/'
-      + '${status.repo.name}">${status.repo.name}</a>'),
-      issuesEvent: Handlebars.compile('${status.payload.action} issue '
-      + '<a href="http://github.com/${status.repo.name}/issues/'
-      + '${status.payload.issue.number}">${status.payload.issue.number}</a> '
-      + 'on <a href="http://github.com/${status.repo.name}">'
-      + '${status.repo.name}</a>'),
-      pullRequestEvent: Handlebars.compile('${status.payload.action} pull request '
-      + '<a href="http://github.com/${status.repo.name}/pull/'
-      + '${status.payload.number}">${status.payload.number}</a> on '
-      + '<a href="http://github.com/${status.repo.name}">'
-      + '${status.repo.name}</a>'),
-      pushEvent: Handlebars.compile('pushed to <a href="http://github.com/${status.repo.name}'
-      + '/tree/${status.payload.ref}">${status.payload.ref}</a> at '
-      + '<a href="http://github.com/${status.repo.name}">'
-      + '${status.repo.name}</a>'),
+      + '{{status.repo.name}}/issues/{{status.payload.issue.number}}">'
+      + '{{status.payload.issue.number}}</a> on <a href="http://github.com/'
+      + '{{status.repo.name}}">{{status.repo.name}}</a>'),
+      issuesEvent: Handlebars.compile('{{status.payload.action}} issue '
+      + '<a href="http://github.com/{{status.repo.name}}/issues/'
+      + '{{status.payload.issue.number}}">{{status.payload.issue.number}}</a> '
+      + 'on <a href="http://github.com/{{status.repo.name}}">'
+      + '{{status.repo.name}}</a>'),
+      pullRequestEvent: Handlebars.compile('{{status.payload.action}} pull request '
+      + '<a href="http://github.com/{{status.repo.name}}/pull/'
+      + '{{status.payload.number}}">{{status.payload.number}}</a> on '
+      + '<a href="http://github.com/{{status.repo.name}}">'
+      + '{{status.repo.name}}</a>'),
+      pushEvent: Handlebars.compile('pushed to <a href="http://github.com/{{repo.name}}'
+      + '/tree/{{payload.ref}}">{{payload.ref}}</a> at '
+      + '<a href="http://github.com/{{status.repo.name}}">'
+      + '{{status.repo.name}}</a>'),
       watchEvent: Handlebars.compile('started watching <a href="http://github.com/'
-      + '${status.repo.name}">${status.repo.name}</a>')
+      + '{{status.repo.name}}">{{status.repo.name}}</a>')
     },
     config.template),
 
   parseGithubStatus = function( status ) {
+      console.log(status);
     if (status.type === 'CommitCommentEvent' ) {
       return template.commitCommentEvent( {status: status} );
     }

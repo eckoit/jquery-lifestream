@@ -1,4 +1,4 @@
-define('services/citeulike', ['jquery', 'handlebars'], function(_, Handlebars){
+define('jam/jquery-lifestream/services/citeulike', ['jquery', 'handlebars'], function(_, Handlebars){
 return function( config, callback ) {
 
   var template = $.extend({},

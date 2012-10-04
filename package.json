@@ -7,7 +7,8 @@
       "dependencies": {
         "jquery": ">=1.4.2",
         "handlebars" : null,
-        "async" : null
+        "underscore" : null,
+        "moment" : null
       },
       "main" : "core.js"
   },

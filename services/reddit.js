@@ -1,4 +1,4 @@
-define('services/reddit', ['jquery', 'handlebars'], function(_, Handlebars){
+define('jam/jquery-lifestream/services/reddit', ['jquery', 'handlebars'], function(_, Handlebars){
 return function( config, callback ) {
 
   var template = $.extend({},

@@ -1,4 +1,4 @@
-define('services/wikipedia', ['jquery', 'handlebars'], function(_, Handlebars){
+define('jam/jquery-lifestream/services/wikipedia', ['jquery', 'handlebars'], function(_, Handlebars){
 return function( config, callback ) {
   // default to english if no language was set
   var language = config.language || 'en',

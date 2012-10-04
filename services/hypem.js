@@ -1,4 +1,4 @@
-define('services/hypem', ['jquery', 'handlebars'], function(_, Handlebars){
+define('jam/jquery-lifestream/services/hypem', ['jquery', 'handlebars'], function(_, Handlebars){
 return function( config, callback ) {
 
   if( !config.type || config.type !== "history" || config.type !== "loved" ) { config.type = "loved"; }
