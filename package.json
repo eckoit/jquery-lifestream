@@ -1,0 +1,10 @@
+{
+  "name": "jquery-lifestream",
+  "version": "0.3.2",
+  "description": "Show a stream of your online activity with jQuery",
+  "categories": ["Visualization"],
+  "dependencies": {
+    "jquery": ">=1.4.2",
+    "handlebars" : null
+  }
+}
