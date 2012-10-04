@@ -8,7 +8,7 @@
         "jquery": ">=1.4.2",
         "handlebars" : null
       },
-      "main" : "src/core.js"
+      "main" : "core.js"
   }
 
 }
