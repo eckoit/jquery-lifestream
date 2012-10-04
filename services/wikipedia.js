@@ -1,5 +1,5 @@
 define('services/wikipedia', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.wikipedia = function( config, callback ) {
+return function( config, callback ) {
   // default to english if no language was set
   var language = config.language || 'en',
 

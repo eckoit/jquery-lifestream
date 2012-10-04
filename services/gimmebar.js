@@ -1,5 +1,5 @@
 define('services/gimmebar', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.gimmebar = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

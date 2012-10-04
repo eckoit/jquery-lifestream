@@ -1,5 +1,5 @@
 define('services/posterous', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.posterous = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

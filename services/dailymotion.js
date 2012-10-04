@@ -1,5 +1,5 @@
 define('services/dailymotion', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.dailymotion = function( config, callback ) {
+return  function( config, callback ) {
 
   var template = $.extend({},
     {

@@ -1,5 +1,5 @@
 define('services/deviantart', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.deviantart = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

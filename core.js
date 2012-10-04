@@ -119,23 +119,14 @@ define('jquery-lifestream', ['jquery', 'async'], function($, async){
 
         // Run over all the items in the list
         for( ; i < j; i++ ) {
-
-          var config = settings.list[i];
-
-          // Check whether the feed exists, if the feed is a function and if a
-          // user has been filled in
-          if ( $.fn.lifestream.feeds[config.service] &&
-               $.isFunction( $.fn.lifestream.feeds[config.service] ) &&
-               config.user) {
-
-            // You'll be able to get the global settings by using
-            // config._settings in your feed
-            config._settings = itemsettings;
-
-            // Call the feed with a config object and finished callback
-            $.fn.lifestream.feeds[config.service]( config, finished );
-          }
-
+            var config = settings.list[i];
+            if (config.user) {
+                console.log(config);
+                require(['services/' + config.service], function(service){
+                    config._settings = itemsettings;
+                    $.fn.lifestream.feeds[config.service] = service( config, finished );
+                })
+            }
         }
 
       };

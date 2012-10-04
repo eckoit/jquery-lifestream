@@ -1,5 +1,5 @@
 define('services/googlereader', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.googlereader = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

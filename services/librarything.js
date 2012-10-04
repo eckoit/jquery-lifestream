@@ -1,5 +1,5 @@
 define('services/librarything', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.librarything = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

@@ -1,5 +1,5 @@
 define('services/citeulike', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.citeulike = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

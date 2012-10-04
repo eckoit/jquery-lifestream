@@ -1,5 +1,5 @@
 define('services/foursquare', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.foursquare = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

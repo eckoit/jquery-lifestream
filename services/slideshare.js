@@ -1,5 +1,5 @@
 define('services/slideshare', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.slideshare = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

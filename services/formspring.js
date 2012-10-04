@@ -1,5 +1,5 @@
 define('services/formspring', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.formspring = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

@@ -1,5 +1,5 @@
 define('services/iusethis', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.iusethis = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

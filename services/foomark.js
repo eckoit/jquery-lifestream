@@ -1,5 +1,5 @@
 define('services/foomark', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.foomark = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

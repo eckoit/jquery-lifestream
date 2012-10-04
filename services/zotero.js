@@ -1,5 +1,5 @@
 define('services/zotero', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.zotero = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

@@ -1,5 +1,5 @@
 define('services/quora', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.quora = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

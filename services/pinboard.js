@@ -1,5 +1,5 @@
 define('services/pinboard', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.pinboard = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

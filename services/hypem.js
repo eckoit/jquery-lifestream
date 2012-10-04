@@ -1,5 +1,5 @@
 define('services/hypem', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.hypem = function( config, callback ) {
+return function( config, callback ) {
 
   if( !config.type || config.type !== "history" || config.type !== "loved" ) { config.type = "loved"; }
 

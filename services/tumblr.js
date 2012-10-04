@@ -1,5 +1,5 @@
 define('services/tumblr', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.tumblr = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {

@@ -1,5 +1,5 @@
 define('services/facebook_page', ['jquery', 'handlebars'], function(_, Handlebars){
-$.fn.lifestream.feeds.facebook_page = function( config, callback ) {
+return function( config, callback ) {
 
   var template = $.extend({},
     {
